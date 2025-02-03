@@ -1,0 +1,6 @@
+apiVersion: v2
+name: typesense
+description: A Helm chart for deploying TypeSense in Kubernetes
+type: application
+version: 1.0.0
+appVersion: "28.0.rc35"

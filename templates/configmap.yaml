@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nodeslist
+  namespace: "typesense"   # ✅ Fixed namespace as a string
+data:
+  nodes: |
+    {{- $replicaCount := int .Values.replicaCount }}
+    {{- range $index, $ := until $replicaCount }}
+    typesense-{{ $index }}.ts.typesense.svc.cluster.local:8107:8108{{ if ne $index (sub $replicaCount 1) }},{{ end }}
+    {{- end }}
+

@@ -1,0 +1,70 @@
+# Global settings
+namespace: "typesense"
+
+# Image settings
+image:
+  repository: typesense/typesense
+  tag: "28.0.rc35"
+  pullPolicy: IfNotPresent
+
+# Replica count
+replicaCount: 1 
+
+# API key (stored securely in a Secret)
+apiKey: "xyz"
+
+# Service settings
+service:
+  type: ClusterIP
+  port: 8108
+
+# Ingress settings
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: typesense.example.com
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+# Storage settings
+storage:
+  storageClassName: "standard"
+  size: 5Gi
+
+# Resource requests and limits
+resources:
+  requests:
+    memory: "1Gi"
+    cpu: "250m"
+  limits:
+    memory: "2Gi"
+    cpu: "500m"
+
+# Security context
+securityContext:
+  fsGroup: 2000
+  runAsUser: 10000
+  runAsGroup: 3000
+  runAsNonRoot: true
+
+# Termination grace period
+terminationGracePeriodSeconds: 30
+
+# Probes
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 8108
+  initialDelaySeconds: 10
+  periodSeconds: 10
+
+readinessProbe:
+  httpGet:
+    path: /health
+    port: 8108
+  initialDelaySeconds: 5
+  periodSeconds: 10
